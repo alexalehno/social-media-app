@@ -5,7 +5,7 @@ import { HomePage } from './features/HomePage/HomePage.jsx';
 
 function App() {
   return (
-    <>
+    <div className='App'>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />} >
@@ -14,7 +14,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+    </div>
   );
 }
 

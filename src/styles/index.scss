@@ -19,6 +19,18 @@ h1 {
   color: white;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.main {
+  flex-grow: 1;
+}
+
 .container {
   max-width: 800px;
   padding: 5px 20px 0;
