@@ -1,9 +1,14 @@
-import './styles/index.scss';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { PostsList } from './features/posts/PostsList/PostsList.jsx';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Social-media App</h1>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<PostsList />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
