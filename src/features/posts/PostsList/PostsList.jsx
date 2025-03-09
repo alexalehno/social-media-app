@@ -5,7 +5,7 @@ export const PostsList = () => {
   const { data: posts = [] } = useGetPostsQuery();
  
   return (
-    <section className={classes.postsList}>
+    <section className='container'>
       <h2 className={classes.postsTitle}>Posts</h2>
 
       {
