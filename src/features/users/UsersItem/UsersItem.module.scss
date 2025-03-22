@@ -1,0 +1,42 @@
+.content {
+  padding: 10px 15px;
+  margin-top: 0.5rem;
+  border: 1px solid rgb(177, 174, 174);
+  border-radius: 7px;
+  transition: .3s;
+
+  &:hover {
+    background-color: rgb(206, 206, 206);
+  }
+}
+
+.photoName_wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: rgb(176, 176, 176);
+}
+
+.cityEmail_wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.name {
+  margin: 0 0 0 10px;
+  font-size: 16px;
+  color: black;
+}
+
+.city, .email {
+  font-size: 14px;
+  color: rgb(133, 133, 133);
+  font-style: italic;
+}
