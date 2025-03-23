@@ -15,6 +15,7 @@ export const UsersList = () => {
               name={user.name} 
               city={user.address.city}
               email={user.email}
+              userId={user.id}
             />
           ))
         }
