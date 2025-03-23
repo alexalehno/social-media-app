@@ -1,9 +1,14 @@
 import { useGetPostsQuery, useGetUsersQuery } from '../../api/apiSlice';
 import { PostExcerpt } from '../PostExcerpt/PostExcerpt';
+import { Spinner } from '../../../components/Spinner/Spinner';
 
 export const PostsList = () => {
-  const { data: posts = [] } = useGetPostsQuery();
+  const { data: posts = [], isLoading } = useGetPostsQuery();
   const { data: users = [] } = useGetUsersQuery();
+
+  if (isLoading) {
+    return <section className='container'><Spinner text='Loading...'/></section> 
+  }  
 
   return (
     <section className='container'>

@@ -1,8 +1,13 @@
 import { useGetUsersQuery } from '../../api/apiSlice';
 import { UsersItem } from '../UsersItem/UsersItem';
+import { Spinner } from '../../../components/Spinner/Spinner';
 
 export const UsersList = () => {
-  const { data: users = [] } = useGetUsersQuery();
+  const { data: users = [], isLoading } = useGetUsersQuery();
+
+  if (isLoading) {
+    return <section className='container'><Spinner text='Loading...'/></section> 
+  }  
    
   return (
     <section className='container'>

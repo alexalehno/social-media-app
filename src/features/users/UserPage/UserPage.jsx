@@ -4,14 +4,15 @@ import { useGetUsersQuery, useGetPostsQuery } from '../../api/apiSlice';
 import { setColor } from '../../../functions/functions';
 import { joinStyles } from '../../../functions/functions';
 import { PostExcerpt } from '../../posts/PostExcerpt/PostExcerpt';
+import { Spinner } from '../../../components/Spinner/Spinner';
  
 export const UserPage = () => {
   const { userId } = useParams();
   const { data: users = [], isLoading } = useGetUsersQuery();
   const { data: posts = [] } = useGetPostsQuery();
- 
+
   if (isLoading) {
-    return <section className='container'>Загрузка...</section>;
+    return <section className='container'><Spinner text='Loading...'/></section> 
   }   
 
   const userPosts = posts.filter(post => post.userId === +userId);
