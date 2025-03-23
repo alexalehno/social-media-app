@@ -3,6 +3,7 @@ import { Layout } from './components/Layout.jsx';
 import { PostsList } from './features/posts/PostsList/PostsList.jsx';
 import { HomePage } from './features/HomePage/HomePage.jsx';
 import { UsersList } from './features/users/UsersList/UsersList.jsx';
+import { UserPage } from './features/users/UserPage/UserPage.jsx';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="posts" element={<PostsList />} />
             <Route path="users" element={<UsersList />} />
+            <Route path="/users/:userId" element={<UserPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
