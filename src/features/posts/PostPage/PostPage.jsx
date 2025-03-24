@@ -1,9 +1,10 @@
 import classes from './PostPage.module.scss';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { PostAuthor } from '../PostAuthor/PostAuthor';
 import { useGetPostsQuery, useGetUsersQuery } from '../../api/apiSlice';
 import { Spinner } from '../../../components/Spinner/Spinner';
+import { PostAuthor } from '../PostAuthor/PostAuthor';
+import { CommentsList } from '../../comments/CommentsList/CommentsList';
 
 export const PostPage = () => {
   const { postId } = useParams();
@@ -23,6 +24,7 @@ export const PostPage = () => {
         <PostAuthor userId={userId} users={users}/>
         <p className={classes.body}>{body}</p>
         <Link className={classes.editPostBtn} to={``}>Edit Post</Link>
+        <CommentsList postId={postId}/>
       </article>
     </section>
   )
