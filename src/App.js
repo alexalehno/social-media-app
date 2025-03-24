@@ -4,6 +4,7 @@ import { PostsList } from './features/posts/PostsList/PostsList.jsx';
 import { HomePage } from './features/HomePage/HomePage.jsx';
 import { UsersList } from './features/users/UsersList/UsersList.jsx';
 import { UserPage } from './features/users/UserPage/UserPage.jsx';
+import { PostPage } from './features/posts/PostPage/PostPage.jsx';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="posts" element={<PostsList />} />
             <Route path="users" element={<UsersList />} />
             <Route path="/users/:userId" element={<UserPage />} />
+            <Route path="/posts/:postId" element={<PostPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

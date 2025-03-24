@@ -1,0 +1,22 @@
+.title {
+  font-size: 2rem;
+}
+
+.body{
+ font-size: 1.2rem;
+ line-height: 1.7rem;
+}
+
+.editPostBtn {
+  display: inline-block;
+  padding: 7px 20px;
+  margin-top: 30px;
+  border-radius: 7px;
+  color: white;
+  background-color: blue;
+  transition: .3s;
+
+  &:hover {
+    background-color: rgb(103, 103, 240);
+  }
+}
