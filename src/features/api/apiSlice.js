@@ -13,7 +13,11 @@ export const apiSlice = createApi({
 
   endpoints: (builder) => ({
     getPosts: builder.query({
-      query: () => '/posts',
+      query: ({ limit, page }) => `/posts?_limit=${limit}&_page=${page}`,
+      transformResponse: (response, meta) => {
+        const totalCount = meta.response.headers.get('x-total-count');
+        return { posts: response, totalCount };
+      },
     }),
 
     getPost: builder.query({

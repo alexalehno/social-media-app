@@ -1,0 +1,26 @@
+.paginationBlock {
+  display: flex;
+  flex-wrap: wrap; // ???
+  padding: 10px;
+  margin: 15px 0;
+}
+
+.pageNumBtn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  border: 1px solid black;
+  border-radius: 7px;
+  transition: .3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(165, 165, 165);
+  }
+}
+
+.active {
+  background-color: rgb(165, 165, 165);
+}
