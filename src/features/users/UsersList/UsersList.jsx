@@ -1,13 +1,9 @@
-import { useGetUsersQuery } from '../../api/apiSlice';
+import { selectAllUsers } from '../../api/apiSlice';
+import { useSelector } from 'react-redux';
 import { UsersItem } from '../UsersItem/UsersItem';
-import { Spinner } from '../../../components/Spinner/Spinner';
 
 export const UsersList = () => {
-  const { data: users = [], isLoading } = useGetUsersQuery();
-
-  if (isLoading) {
-    return <section className='container'><Spinner text='Loading...'/></section> 
-  }  
+  const users = useSelector(selectAllUsers);
    
   return (
     <section className='container'>

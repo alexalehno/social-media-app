@@ -7,8 +7,7 @@ import { apiSlice } from './features/api/apiSlice';
 import './styles/index.scss';
 
 function start() {
-  store.dispatch(apiSlice.endpoints.getPosts.initiate());
-  store.dispatch(apiSlice.endpoints.getUsers.initiate());
+ store.dispatch(apiSlice.endpoints.getUsers.initiate());
 
   const root = ReactDOM.createRoot(document.getElementById('root'));
   root.render(

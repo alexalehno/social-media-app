@@ -1,22 +1,22 @@
 import classes from './UserPage.module.scss';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useGetUsersQuery, useGetPostsQuery } from '../../api/apiSlice';
+import { useGetUserPostsQuery, selectUserById } from '../../api/apiSlice';
 import { setColor } from '../../../functions/functions';
 import { joinStyles } from '../../../functions/functions';
 import { PostExcerpt } from '../../posts/PostExcerpt/PostExcerpt';
 import { Spinner } from '../../../components/Spinner/Spinner';
- 
+
 export const UserPage = () => {
   const { userId } = useParams();
-  const { data: users = [], isLoading } = useGetUsersQuery();
-  const { data: posts = [] } = useGetPostsQuery();
+  const user = useSelector(state => selectUserById(state, userId));
+  const { data: posts = [], isLoading } = useGetUserPostsQuery(userId);  
 
-  if (isLoading) {
+  if (isLoading || !user) {
     return <section className='container'><Spinner text='Loading...'/></section> 
   }   
-
-  const userPosts = posts.filter(post => post.userId === +userId);
-  const { name,  email, address, phone, company } = users?.find(user => user.id === +userId);
+  
+  const { name,  email, address, phone, company } = user;
   
   return (
     <section className={joinStyles(['container', classes.page])}>
@@ -38,8 +38,8 @@ export const UserPage = () => {
       <div className={classes.userPosts}>
         <h2>Posts</h2>
         {
-          userPosts.map(post => (
-            <PostExcerpt post={post} users={users} key={post.id}/>
+          posts.map(post => (
+            <PostExcerpt post={post} key={post.id}/>
           ))
         }       
       </div>

@@ -1,5 +1,5 @@
 import classes from './CommentsList.module.scss'
-import { useGetCommentsQuery } from '../../api/apiSlice';
+import { useGetPostCommentsQuery } from '../../api/apiSlice';
 import { Spinner } from '../../../components/Spinner/Spinner';
 
 const CommentsItem = ({ name, body, email }) => {
@@ -13,8 +13,7 @@ const CommentsItem = ({ name, body, email }) => {
 }
 
 export const CommentsList = ({ postId }) => {
-  const { data: comments = [], isLoading } = useGetCommentsQuery();
-  const postComments = comments.filter(comment => comment.postId === +postId)
+  const { data: comments = [], isLoading } = useGetPostCommentsQuery(postId);
 
   if (isLoading) {
     return <section className='container'><Spinner text='Loading...'/></section> 
@@ -22,10 +21,10 @@ export const CommentsList = ({ postId }) => {
    
   return (
     <div className={classes.commentsBlock}>
-      <h3>Comments</h3>
+      <h3>Comments:</h3>
       <ul>
         {
-          postComments.map(comment => (
+          comments.map(comment => (
             <CommentsItem 
               key={comment.id} 
               name={comment.name} 

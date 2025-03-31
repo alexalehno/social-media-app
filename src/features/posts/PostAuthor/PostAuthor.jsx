@@ -1,11 +1,13 @@
 import classes from './PostAuthor.module.scss';
+import { useSelector } from 'react-redux';
+import { selectUserById } from '../../api/apiSlice';
 
-export const PostAuthor = ({ userId, users }) => {
-  const author = users.find(user => user.id === userId);
+export const PostAuthor = ({ userId }) => {
+  const user = useSelector(state => selectUserById(state, userId));
 
   return (
     <span className={classes.author}>
-      by {author ? author.name : 'Unknown author' }
+      by {user ? user.name : 'Unknown author' }
     </span>
   );
 }
