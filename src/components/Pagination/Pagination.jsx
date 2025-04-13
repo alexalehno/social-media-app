@@ -1,30 +1,56 @@
 import classes from './Pagination.module.scss';
-import { joinStyles, createNumberArray } from '../../functions/functions';
+import { getPageNumbers } from '../../functions/functions';
+import { useState, useEffect } from 'react';
 
-export const Pagination = ({ limit, page, totalCount, onPageChange }) => {
-  const numberOfPage = Math.ceil(totalCount/limit);
-  const numberOfPageArr = createNumberArray(numberOfPage);
-  
-  if (numberOfPage === 1) {
-    return null;
-  }
-  
+const DESKTOP_VISIBLE_PAGES = 7;
+const MOBILE_VISIBLE_PAGES = 4;
+
+export function Pagination({ currentPage, totalPages, onPageChange }) {
+  const [visiblePages, setVisiblePages] = useState(DESKTOP_VISIBLE_PAGES);
+  const pageNumbers = getPageNumbers(currentPage, totalPages, visiblePages);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setVisiblePages(window.innerWidth < 600 ? MOBILE_VISIBLE_PAGES : DESKTOP_VISIBLE_PAGES);
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
-    <div className={classes.paginationBlock}>
+    <div className={classes.pagination}>
+      <button 
+        className={classes.button}
+        disabled={currentPage === 1} 
+        onClick={() => onPageChange(currentPage - 1)}
+      >
+        Previous
+      </button> 
+
       {
-        numberOfPageArr.map(num => (
-          <span 
-            className={ num===page 
-              ? joinStyles([classes.pageNumBtn, classes.active]) 
-              : classes.pageNumBtn
-            } 
-            onClick={()=>onPageChange(num)}
-            key={num}
+        pageNumbers.map((pageNumber) => (
+          <button 
+            className={classes.button}
+            key={pageNumber} 
+            onClick={() => onPageChange(pageNumber)} 
+            disabled={currentPage === pageNumber}
           >
-            {num}
-          </span>
+            {pageNumber}
+          </button> 
         ))
       }
+
+      <button 
+        className={classes.button}
+        disabled={currentPage === totalPages} 
+        onClick={() => onPageChange(currentPage + 1)}
+      >
+        Next
+      </button> 
     </div>
-  )
+  );
 }

@@ -1,7 +1,7 @@
 import classes from './RadioGroup.module.scss';
 import { useState } from 'react';
 
-export const RadioGroup = ({ title, name, arr, defaultValue, fetchValue }) => {
+export const RadioGroup = ({ title, name, options, defaultValue, fetchValue }) => {
   const [selectedOption, setSelectedOption] = useState(defaultValue);
 
   const handleChange = (e) => {
@@ -14,14 +14,14 @@ export const RadioGroup = ({ title, name, arr, defaultValue, fetchValue }) => {
       <h3>{title}</h3>
       <div className={classes.switch}>
         {
-          arr.map(obj => (
+          options.map(option => (
             <RadioItem 
               selectedOption={selectedOption}
               handleChange={handleChange}
-              value={obj.value} 
-              title={obj.title}
               name={name}
-              key={obj.value}
+              value={option.value} 
+              title={option.title}
+              key={option.value}
             />
           ))
         }

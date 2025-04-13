@@ -5,39 +5,44 @@ import { Spinner } from '../../../components/Spinner/Spinner';
 import { RadioGroup } from '../../../components/RadioGroup/RadioGroup';
 import { Pagination } from '../../../components/Pagination/Pagination';
 
-export const PostsList = () => {
-  const DEFAULT_NUMBER = '5';
+const ITEMS_PER_PAGE = '5';
 
-  const [limit, setLimit] = useState(DEFAULT_NUMBER);
-  const [page, setPage] = useState(1);
+const getPostsPerPageOptions = (totalCount) => [
+  { value: ITEMS_PER_PAGE, title: ITEMS_PER_PAGE },
+  { value: '10', title: '10' },
+  { value: '20', title: '20' },
+  { value: String(totalCount), title: 'All' },
+];
+
+export const PostsList = () => {
+  const [itemsPerPage, setItemsPerPage] = useState(ITEMS_PER_PAGE);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const { data, isLoading, isFetching } = useGetPostsQuery({
+    limit: Number(itemsPerPage),  
+    page: currentPage
+  });
 
   const handleLimitChange = (newLimit) => {
-    setLimit(newLimit);
-    setPage(1);
+    setItemsPerPage(newLimit);
+    setCurrentPage(1);
   };
-
-  const { data, isLoading, isFetching } = useGetPostsQuery({limit, page});
 
   if (isLoading) {
     return <section className='container'><Spinner text='Loading...'/></section> 
   }  
   
   const { posts, totalCount } = data;
-  
-  const postsNum = [
-    {value: DEFAULT_NUMBER, title: DEFAULT_NUMBER},
-    {value: '10', title: '10'},
-    {value: '20', title: '20'},
-    {value: totalCount, title: 'All'},
-  ]
+  const totalPages = Math.ceil(totalCount/Number(itemsPerPage));
+  const postsPerPageOptions = getPostsPerPageOptions(totalCount);
 
   return (
     <section className='container'>
       <RadioGroup 
         title='Number of posts'
         name='posts'
-        arr={postsNum}
-        defaultValue={DEFAULT_NUMBER}
+        options={postsPerPageOptions}
+        defaultValue={ITEMS_PER_PAGE}
         fetchValue={handleLimitChange}
       />
 
@@ -56,10 +61,9 @@ export const PostsList = () => {
       }
 
       <Pagination 
-        limit={limit}
-        page={page}
-        totalCount={totalCount}
-        onPageChange={setPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
       />
     </section>
   );
